@@ -6,14 +6,12 @@ export default async ctx => {
   try {
     const mostScoredQuestion = await data
       .question
-      .where('was_picked', false)
-      .where('score', '>', 0)
+      .where([['was_picked', false], ['score', '>', 0]])
       .orderBy('score', 'DESC')
-      .fields('id')
-      .first()
+      .value('id')
 
     if (mostScoredQuestion != null) {
-      await data.question.update(mostScoredQuestion.id, {
+      await data.question.update(mostScoredQuestion, {
         was_picked: true,
         picked_at: new Date().toISOString()
       })
@@ -22,7 +20,7 @@ export default async ctx => {
   }
   catch (err) {
     response.fail({
-      message: 'Can not get active question',
+      message: 'Can not set active question',
     })
   }
 }
