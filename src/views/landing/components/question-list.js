@@ -2,23 +2,25 @@ import {connect} from 'zefir/utils';
 import {Button, Input, Grid} from '../../../components';
 import Moment from 'react-moment'
 
-const QuestionList = ({upvote, questions}) => (
+const QuestionList = ({upvote, questions, user}) => (
   <ul className="QuestionList">
     {questions.map(q => (
       <li className="Question" key={q.id}>
         <div className="Question__actions">
-          <span
-            className="Question__upvote"
-            onClick={upvote}
-            data-id={q.id}
-          >
-            Upvote
-          </span>
+          {q.upvoted_by.indexOf(user.id) === -1 && (
+            <span
+              className="Question__upvote"
+              onClick={upvote}
+              data-id={q.id}
+            >
+              Upvote
+            </span>
+          )}
           <div className="Question__points">{q.points}</div>
         </div>
         <h3>{q.content}</h3>
         <div className="Question__meta">
-          <span>{q.author.username}</span> asked <span><Moment fromNow date={q.created_at} /></span>
+          <span>{q.author.full_name}</span> asked <span><Moment fromNow date={q.created_at} /></span>
         </div>
       </li>
     ))}
@@ -53,6 +55,10 @@ const QuestionList = ({upvote, questions}) => (
 
       .Question__points {
         color: #999;
+      }
+
+      .Question__points:only-child {
+        margin-top: 8px;
       }
 
       .Question__meta span {
@@ -100,7 +106,8 @@ QuestionList.form = {
 
 QuestionList.init = ({stores, actions}) => ({
   questions: stores.app.questions,
-  upvote: actions.upvote
+  upvote: actions.upvote,
+  user: stores.app.user
 })
 
 QuestionList.actions = {

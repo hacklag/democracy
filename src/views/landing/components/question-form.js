@@ -24,7 +24,8 @@ QuestionForm.form = {
 QuestionForm.init = ({services, stores, form: {submit, fields}}) => ({
   send: e => {
     stores.app.isLoggedIn ?
-      submit(e, services.app.question.add) :
+      submit(e, services.app.question.add)
+        .then(() => fields.content.value = '') :
       submit(e, services.app.auth.login)
   },
   fields,
