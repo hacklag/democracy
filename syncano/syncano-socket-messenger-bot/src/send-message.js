@@ -4,7 +4,9 @@ export default (ctx) => {
   const sendMessage = (messageData, sender) => {
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
-      qs: {access_token: ctx.config.FACEBOOK_APP_TOKEN},
+      qs: {
+        access_token: ctx.config.FACEBOOK_APP_TOKEN
+      },
       method: 'POST',
       json: {
         recipient: {id: sender},

@@ -10,13 +10,12 @@ export default async ctx => {
 
   if (upvoted_by.indexOf(ctx.meta.user.id) > -1) {
     response.fail({
-      message: 'You have already upvoted',
+      message: 'You have already upvoted'
     })
     process.exit(0)
   }
 
   try {
-
     const itemHoursAge = new Date(created_at).getHours()
 
     const upvotedQuestion = await data.question.update(ctx.args.question, {
@@ -26,10 +25,9 @@ export default async ctx => {
     })
 
     response.success(upvotedQuestion)
-  }
-  catch (err) {
+  } catch (err) {
     response.fail({
-      message: 'Can not upvote qestion',
+      message: 'Can not upvote qestion'
     })
   }
 }

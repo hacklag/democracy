@@ -1,7 +1,7 @@
 import Server from 'syncano-server'
 
-export default (ctx) => {
-  const {event, logger, response} = Server(ctx)
+export default async (ctx) => {
+  const {users, event, logger, response} = Server(ctx)
   const {debug} = logger('webhook')
 
   if (ctx.args['hub.mode'] === 'subscribe') {
@@ -18,10 +18,22 @@ export default (ctx) => {
       debug('Sending event new user')
       const sender = ctx.args.entry[0].messaging[0].sender.id
       event.emit('message-send', {text: 'Welcome! Now you can have real impact on your future!', sender})
-      return event.emit('new-user', ctx.args.entry[0].sender)
+
+      await users
+        .fields('id', 'user_key', 'full_name')
+        .firstOrCreate(
+        {
+          username: sender
+        },
+        {
+          username: sender,
+          password: Math.random().toString(36).slice(-8),
+          type: 'messenger'
+        }
+      )
     }
   } catch (err) {
-    console.log('Error', err)
+    // console.log('Error', err)
   }
 
   try {
@@ -33,7 +45,7 @@ export default (ctx) => {
       return event.emit('question-response-received', {payload, sender})
     }
   } catch (err) {
-    console.log('Error', err)
+    // console.log('Error', err)
   }
 
   if (ctx.args.entry && ctx.args.entry[0] && ctx.args.entry[0].messaging) {

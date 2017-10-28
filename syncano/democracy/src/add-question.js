@@ -13,10 +13,9 @@ export default async ctx => {
       was_picked: false,
     })
     response.success(question)
-  }
-  catch (err) {
+  } catch (err) {
     response.fail({
-      message: 'Can not add question',
+      message: 'Can not add question'
     })
   }
 }

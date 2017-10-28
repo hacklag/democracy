@@ -12,10 +12,9 @@ export default async ctx => {
       .first()
 
     response.success(activeQuestion)
-  }
-  catch (err) {
+  } catch (err) {
     response.fail({
-      message: 'Can not get active question',
+      message: 'Can not get active question'
     })
   }
 }

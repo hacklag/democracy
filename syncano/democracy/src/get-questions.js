@@ -12,8 +12,7 @@ export default async ctx => {
       .list()
 
     response.success(questions)
-  }
-  catch (err) {
+  } catch (err) {
     response.fail({
       err,
       message: 'Can not list questions'

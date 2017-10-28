@@ -38,6 +38,13 @@ const QuestionList = ({upvote, questions}) => (
         box-shadow: 0 2px 4px hsla(225,2%,43%, .18);
       }
 
+      .Question__content {
+        font-size: 12px;
+        margin-top: 3px;
+        color: #aaa;
+        font-weight: bold;
+      }
+
       .Question__meta {
         font-size: 12px;
         margin-top: 3px;
