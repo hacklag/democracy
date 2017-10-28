@@ -14,15 +14,15 @@ export default async ctx => {
     }
   })
 
-  if(!canVote) {
+  if (!canVote) {
     response.fail({
-      message: 'You have already voted',
+      message: 'You have already voted'
     })
     process.exit(0)
   }
 
   try {
-    const {question, value} = ctx.args;
+    const {question, value} = ctx.args
 
     const vote = await data.vote.create({
       author: ctx.meta.user.id,
@@ -30,10 +30,9 @@ export default async ctx => {
       value
     })
     response.success(vote)
-  }
-  catch (err) {
+  } catch (err) {
     response.fail({
-      message: 'Can not add vote',
+      message: 'Can not add vote'
     })
   }
 }

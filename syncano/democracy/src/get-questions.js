@@ -7,8 +7,7 @@ export default async ctx => {
     const questions = await data.question.with('author').orderBy('score').list()
 
     response.success(questions)
-  }
-  catch (err) {
+  } catch (err) {
     response.fail({
       err,
       message: 'Can not list questions'

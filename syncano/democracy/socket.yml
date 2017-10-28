@@ -110,3 +110,12 @@ endpoints:
         parameters:
           message:
             type: string
+  send-question:
+    response:
+      success:
+        exit_code: 200
+      fail:
+        exit_code: 400
+        parameters:
+          message:
+            type: string

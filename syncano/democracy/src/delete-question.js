@@ -7,10 +7,9 @@ export default async ctx => {
     const question = await data.question.delete(ctx.args.question)
 
     response.success(question)
-  }
-  catch (err) {
+  } catch (err) {
     response.fail({
-      message: 'Can not delete question',
+      message: 'Can not delete question'
     })
   }
 }
