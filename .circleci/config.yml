@@ -12,5 +12,8 @@ jobs:
       - run: sudo npm install -g yarn
       - run: sudo npm install -g syncano-cli@beta
       - run: yarn
+      - run: zefir run build
       - run: chmod -R u+x node_modules
       - run: s deploy
+      - run: s hosting sync production
+      - run: s hosting config production --cname democracy.hacklag.org
