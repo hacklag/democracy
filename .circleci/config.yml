@@ -11,5 +11,6 @@ jobs:
 
       - run: sudo npm install -g yarn
       - run: sudo yarn global add syncano@beta
+      - run: yarn
       - run: chmod -R u+x node_modules
       - run: s deploy
