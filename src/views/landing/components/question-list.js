@@ -1,41 +1,26 @@
-import {connect} from 'zefir/utils'
-import {Button, Input, Grid} from '../../../components'
+import {connect} from 'zefir/utils';
+import {Button, Input, Grid} from '../../../components';
 
-const QuestionList = ({
-  actions
-}) => (
+const QuestionList = ({upvote, questions}) => (
   <ul className="QuestionList">
-    {[{
-      id: 1,
-      content: 'Should we go out tonight?',
-      author: {
-        username: 'johndoe',
-        name: 'John Doe'
-      },
-      points: 90
-    },{
-      id: 2,
-      content: 'Should we build todo app?',
-      author: {
-        username: 'johndoe',
-        name: 'John Doe'
-      },
-      points: 140
-    }].map(q =>
+    {questions.map(q => (
       <li className="Question" key={q.id}>
         <div className="Question__actions">
-          <span className="Question__upvote" onClick={actions.upvote} data-id={q.id}>Upvote</span>
+          <span
+            className="Question__upvote"
+            onClick={upvote}
+            data-id={q.id}
+          >
+            Upvote
+          </span>
           <div className="Question__points">{q.points}</div>
         </div>
         <h3>{q.content}</h3>
         <div className="Question__meta">
-          <Grid>
-              <div className="Question__author">{q.author.name}</div>
-              <div className="Question__date u-ml---">asked 3h ago</div>
-          </Grid>
+          <span>{q.author.name}</span> asked <span>3h ago</span>
         </div>
       </li>
-    )}
+    ))}
 
     <style jsx>{`
       .QuestionList {
@@ -49,7 +34,21 @@ const QuestionList = ({
         border-radius: 4px;
         padding: 16px;
         position: relative;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .07);
+        box-shadow: 0 2px 4px hsla(225,2%,43%, .18);
+      }
+
+      .Question__meta {
+        font-size: 12px;
+        margin-top: 3px;
+        color: #aaa;
+      }
+
+      .Question__points {
+        color: #999;
+      }
+
+      .Question__meta span {
+        color: #6b6c6f;
       }
 
       .Question__actions {
@@ -59,8 +58,7 @@ const QuestionList = ({
         top: 50%;
         text-align: center;
         width: 64px;
-        margin-top: -10px;
-        transform: translateY(-50%);
+        margin-top: -22px;
       }
 
       .Question__upvote {
@@ -68,10 +66,10 @@ const QuestionList = ({
         height: 0;
         font-size: 0;
         border-style: solid;
-        border-width: 0 8px 10px 8px;
+        border-width: 0 7px 8px 7px;
         border-color: transparent transparent #007bff transparent;
         display: inline-block;
-        margin-bottom: 4px;
+        vertical-align: top;
       }
 
       .Question + .Question {
@@ -91,15 +89,22 @@ QuestionList.form = {
   }
 }
 
+QuestionList.init = ({stores, actions}) => ({
+  questions: stores.app.questions,
+  upvote: actions.upvote
+})
+
 QuestionList.actions = {
   upvote: ({services}, e) => {
     const {id} = e.target.dataset
 
-    services
-      .request('question:upvote')
-      .post('democracy/upvote-question', {
-        question: id
-      })
+    services.app.question.upvote(id)
+  }
+}
+
+QuestionList.events = {
+  create: ({services}) => {
+    services.app.question.list()
   }
 }
 

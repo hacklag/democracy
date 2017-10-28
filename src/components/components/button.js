@@ -141,6 +141,7 @@ const Button = ({
       .Button--lg {
         padding: 18px 32px;
         font-size: 25px;
+        font-weight: 300;
       }
     `}</style>
   </button>

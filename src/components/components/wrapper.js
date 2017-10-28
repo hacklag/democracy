@@ -11,6 +11,7 @@ const Wrapper = ({children}) => (
         margin-left: auto;
         margin-right: auto;
         width: 100%;
+        max-width: 960px;
       }
 
       @media screen and (min-width: 769px) {

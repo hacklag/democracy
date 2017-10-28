@@ -1,13 +1,11 @@
 import {connect} from 'zefir/utils'
 import {Button, Input, Grid} from '../../../components'
 
-const QuestionForm = ({
-  form: {fields}
-}) => (
-  <form>
+const QuestionForm = ({fields, send}) => (
+  <form onSubmit={send}>
     <Grid split>
       <Input lg full {...fields.content} />
-      <div className="u-pl">
+      <div className="u-pl---">
         <Button lg primary>Ask</Button>
       </div>
     </Grid>
@@ -22,5 +20,10 @@ QuestionForm.form = {
     }
   }
 }
+
+QuestionForm.init = ({services, form: {submit, fields}}) => ({
+  send: e => submit(e, services.app.question.add),
+  fields,
+})
 
 export default connect(QuestionForm)

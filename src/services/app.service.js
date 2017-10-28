@@ -6,6 +6,55 @@ export default class App {
     this._hello()
   }
 
+  question = {
+    list: action.bound(async () => {
+      let questions = []
+
+      try {
+        questions = await this.services
+          .request('questiion:list')
+          .get('democracy/get-questions')
+      } catch(err) {
+
+      }
+
+      this.store.questions.replace([
+        {
+          id: 1,
+          content: 'Should we go out tonight?',
+          author: {
+            username: 'johndoe',
+            name: 'John Doe'
+          },
+          points: 90
+        },
+        {
+          id: 2,
+          content: 'Should we build todo app?',
+          author: {
+            username: 'johndoe',
+            name: 'John Doe'
+          },
+          points: 140
+        }
+      ])
+    }),
+
+    upvote: action.bound(question =>
+      this.services
+        .request('question:upvote')
+        .post('democracy/upvote-question', {question})
+    ),
+
+    add: action.bound(data =>
+      this.services
+        .request('question:add')
+        .post('democracy/add-question', {
+          content: data.content
+        })
+    )
+  }
+
   @action.bound login (network) {
     const {messages} = this.stores
     const {request, ui} = this.services
