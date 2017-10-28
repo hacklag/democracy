@@ -113,7 +113,7 @@ endpoints:
         parameters:
           message:
             type: string
-   send-question:
+  send-question:
     response:
       success:
         exit_code: 200
@@ -122,9 +122,9 @@ endpoints:
         parameters:
           message:
             type: string
-            
+
 event_handlers:
   schedule.crontab.*/1 * * * *:
     file: event_handlers/score.handler.js
-  schedule.crontab.*/2 * * * *:
+  schedule.crontab.*/10 * * * *:
     file: event_handlers/set-active-question.handler.js
