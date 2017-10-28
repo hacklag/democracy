@@ -110,3 +110,7 @@ endpoints:
         parameters:
           message:
             type: string
+
+event_handlers:
+  schedule.interval.1_minute:
+    file: event_handlers/score.handler.js
