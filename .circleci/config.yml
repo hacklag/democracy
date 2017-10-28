@@ -10,7 +10,7 @@ jobs:
       - checkout
 
       - run: sudo npm install -g yarn
-      - run: sudo npm install -g syncano@beta
+      - run: sudo npm install -g syncano-cli@beta
       - run: yarn
       - run: chmod -R u+x node_modules
       - run: s deploy
