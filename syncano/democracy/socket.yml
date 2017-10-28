@@ -13,6 +13,10 @@ classes:
       type: integer
     - name: score
       type: float
+      filter_index: true
+    - name: upvoted_by
+      type: reference
+      target: user
   question_history:
     - name: question
       type: reference
