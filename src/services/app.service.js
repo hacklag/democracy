@@ -1,5 +1,5 @@
 import hello from 'hellojs'
-import {action} from 'mobx'
+import {action, runInAction} from 'mobx'
 
 export default class App {
   constructor (props) {
@@ -8,43 +8,41 @@ export default class App {
 
   question = {
     list: action.bound(async () => {
-      let questions = []
-
-      try {
-        questions = await this.services
-          .request('questiion:list')
-          .get('democracy/get-questions')
-      } catch(err) {
-
-      }
+      const questions = await this.services
+        .request('questiion:list')
+        .get('democracy/get-questions')
 
       this.store.questions.replace(questions)
     }),
 
-    upvote: action.bound(question =>
-      this.services
+    upvote: action.bound(async question => {
+      const res = await this.services
         .request('question:upvote')
         .post('democracy/upvote-question', {question})
-        .then(() => {
-          this.stores.questions.replace(
-            this.stores.questions.map(item => item.id !== question.id ? item : {
-              ...item,
-              points: item.points + 1
-            })
-          )
-        })
-    ),
 
-    add: action.bound(data =>
-      this.services
+      console.log(this.store.questions)
+      this.store.questions.replace(
+        this.store.questions.map(item =>
+          item.id === res.id ? {
+            ...item,
+            points: res.points,
+            upvoted_by: res.upvoted_by
+          } : item
+        )
+      )
+    }),
+
+    add: action.bound(async data => {
+      const question = await this.services
         .request('question:add')
         .post('democracy/add-question', {
           content: data.content
         })
-        .then(question => {
+
+        runInAction('add question', () => {
           this.store.questions.push(question)
         })
-    )
+    })
   }
 
   auth =  {
@@ -68,8 +66,8 @@ export default class App {
               full_name: res.full_name
             }
 
-            this.store.token = token
-            this.store.token = token
+            this.stores.auth.token = token
+            this.stores.auth.token = token
             window.localStorage.setItem('token', token)
             window.localStorage.setItem('user', JSON.stringify(user))
           } catch (err) {
@@ -84,15 +82,15 @@ export default class App {
     }),
 
     logout: action.bound(() => {
-      this.store.token = null
+      this.stores.auth.token = null
       this.services.syncano.setToken(null)
       this.router.history.push('/')
       window.localStorage.removeItem('token')
     }),
 
     rebuildSession:  action.bound(() => {
-      this.store.token = window.localStorage.getItem('token')
-      this.store.user = JSON.parse(window.localStorage.getItem('user') || "{}")
+      this.stores.auth.token = window.localStorage.getItem('token')
+      this.stores.auth.user = JSON.parse(window.localStorage.getItem('user') || "{}")
     })
   }
 
