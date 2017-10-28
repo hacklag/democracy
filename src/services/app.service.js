@@ -15,6 +15,14 @@ export default class App {
       this.store.questions.replace(questions)
     }),
 
+    listPicked: action.bound(async () => {
+      const questions = await this.services
+        .request('questiion:list')
+        .get('democracy/get-active-questions')
+
+      this.store.pickedQuestions.replace(questions)
+    }),
+
     upvote: action.bound(async question => {
       const res = await this.services
         .request('question:upvote')

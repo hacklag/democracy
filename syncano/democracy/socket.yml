@@ -104,7 +104,7 @@ endpoints:
         parameters:
           message:
             type: string
-  get-active-question:
+  get-active-questions:
     response:
       success:
         exit_code: 200

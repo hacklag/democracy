@@ -12,7 +12,10 @@ export default async ctx => {
       upvoted_by: [ctx.meta.user.id],
       was_picked: false,
     })
-    response.success(question)
+    response.success({
+      ...question,
+      upvoted_by: question.upvoted_by.value
+    })
   } catch (err) {
     response.fail({
       message: 'Can not add question'

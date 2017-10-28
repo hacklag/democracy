@@ -5,7 +5,7 @@ const ProgressBar = ({total, value}) => (
     }} />
     <style jsx>{`
       .ProgressBar {
-        width: 200px;
+        width: 100%;
         background: #e5e5e5;
         border-radius: 5px;
         overflow: hidden;

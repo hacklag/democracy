@@ -24,7 +24,10 @@ export default async ctx => {
       score: (question.points - 1) / Math.pow((itemHoursAge + 2), 1.8)
     })
 
-    response.success(upvotedQuestion)
+    response.success({
+      ...upvotedQuestion,
+      upvoted_by: upvotedQuestion.upvoted_by.value
+    })
   } catch (err) {
     response.fail({
       message: 'Can not upvote qestion'

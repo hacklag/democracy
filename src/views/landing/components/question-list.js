@@ -95,15 +95,6 @@ const QuestionList = ({stores, actions}) => (
   </ul>
 )
 
-QuestionList.form = {
-  formName: 'Question',
-  fields: {
-    content: {
-      placeholder: 'Ask question...'
-    }
-  }
-}
-
 QuestionList.actions = {
   upvote: ({services}, e) => {
     const {id} = e.target.dataset
