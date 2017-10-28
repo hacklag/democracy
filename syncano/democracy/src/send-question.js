@@ -6,7 +6,7 @@ export default async ctx => {
 
   try {
     const question = await data.question.orderBy('score').first()
-    const allUsers = await users.list()
+    const allUsers = await users.where('type', 'messenger').list()
 
     debug('allUsers', allUsers.length)
     allUsers.forEach(async (u) => {
@@ -17,7 +17,6 @@ export default async ctx => {
       }
       debug('sending question', params)
       await event.emit('messenger_bot.send-question', params)
-      console.log("XXX")
     })
   } catch (err) {
     console.log('error!', err)

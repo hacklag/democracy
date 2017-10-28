@@ -41,5 +41,5 @@ export default (ctx) => {
     })
   }
 
-  sendMessage({text: ctx.args.question, id: 123}, ctx.args.recipient)
+  sendMessage({text: ctx.args.questionText, id: ctx.args.questionId}, ctx.args.recipient)
 }
