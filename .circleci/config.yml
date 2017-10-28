@@ -11,6 +11,7 @@ jobs:
 
       - run: sudo npm install -g yarn
       - run: sudo npm install -g syncano-cli@beta
+      - run: sudo npm install -g zefir
       - run: yarn
       - run: zefir run build
       - run: chmod -R u+x node_modules
