@@ -4,7 +4,7 @@ export default async ctx => {
   const {response, data} = new Syncano(ctx)
 
   try {
-    const questions = await data.question.list()
+    const questions = await data.question.orderBy('score').list()
 
     response.success(questions)
   }

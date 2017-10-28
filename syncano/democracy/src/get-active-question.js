@@ -4,9 +4,9 @@ export default async ctx => {
   const {response, data} = new Syncano(ctx)
 
   try {
-    const activeQestion = await data.question_history.first()
+    const activeQuestion = await data.question_history.first()
 
-    response.success(activeQestion)
+    response.success(activeQuestion)
   }
   catch (err) {
     response.fail({

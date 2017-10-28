@@ -9,13 +9,13 @@ classes:
     - name: author
       type: reference
       target: user
-    - name: upvotes
+    - name: points
       type: integer
     - name: score
       type: float
-      filter_index: true
+      order_index: true
     - name: upvoted_by
-      type: reference
+      type: relation
       target: user
   question_history:
     - name: question
@@ -28,6 +28,7 @@ classes:
     - name: question
       type: reference
       target: question
+      filter_index: true
     - name: value
       type: boolean
 
