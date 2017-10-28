@@ -17,10 +17,13 @@ classes:
     - name: upvoted_by
       type: relation
       target: user
-  question_history:
-    - name: question
-      type: reference
-      target: question
+    - name: picked_at
+      type: datetime
+      filter_index: true
+      order_index: true
+    - name: was_picked
+      type: boolean
+      filter_index: true
   vote:
     - name: author
       type: reference
@@ -119,3 +122,9 @@ endpoints:
         parameters:
           message:
             type: string
+
+event_handlers:
+  schedule.crontab.*/1 * * * *:
+    file: event_handlers/score.handler.js
+  schedule.crontab.*/10 * * * *:
+    file: event_handlers/set-active-question.handler.js
