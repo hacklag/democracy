@@ -1,22 +1,40 @@
-export default ({
-  services: {app: {login}}
-}) => (
-  <div className='page'>
-    <button onClick={login}>Login via Facebook</button>
+import {Match, MatchAsGuest, MatchAsMember, Switch} from './components'
 
-    <style jsx>{`
-      .page {
-        padding: 80px;
-        font-family: Arial;
-      }
+import Landing from './views/landing'
+import Auth from './views/auth'
+import Missing from './views/missing'
 
-      button {
-        padding: 7px 14px;
-        background: #0366d6;
-        border-radius: 3px;
-        border: none;
-        color: #fff;
-      }
-    `}</style>
+const guestRoutes = [
+  ['/', Landing, true],
+  ['/auth', Auth]
+]
+
+const memberRoutes = [
+  // ['/dashboard', Dashboard],
+  // ['/flows/:id', Flows, true]
+  //
+]
+
+const Routes = () => (
+  <div>
+    <Switch>
+      {renderRoutes(guestRoutes, MatchAsGuest, '/dashboard')}
+      {renderRoutes(memberRoutes, MatchAsMember, '/auth/login')}
+      <Match component={Missing} />
+    </Switch>
   </div>
 )
+
+Routes.events = {
+  create: ({services}) => {
+    services.auth.rebuildSession()
+  }
+}
+
+export default Routes
+
+function renderRoutes (items, Render, redirect) {
+  return items.map(([path, component, exact], i) => (
+    <Render key={i} {...{path, component, exact, redirect}} />
+  ))
+}

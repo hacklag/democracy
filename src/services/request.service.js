@@ -1,9 +1,7 @@
 import {action} from 'mobx'
 import Syncano from 'syncano-client'
 
-const syncano = new Syncano(process.env.SYNCANO_PROJECT_INSTANCE, {
-  host: process.env.SPACE_HOST
-})
+const syncano = new Syncano(process.env.SYNCANO_PROJECT_INSTANCE)
 
 class Request {
   @action.bound request (name) {
