@@ -12,10 +12,9 @@ export default async ctx => {
       upvoted_by: [ctx.meta.user.id]
     })
     response.success(question)
-  }
-  catch (err) {
+  } catch (err) {
     response.fail({
-      message: 'Can not add question',
+      message: 'Can not add question'
     })
   }
 }
