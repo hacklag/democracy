@@ -13,7 +13,7 @@ jobs:
       - run: sudo npm install -g syncano-cli@beta
       - run: sudo npm install -g zefir
       - run: yarn
-      - run: zefir run build
+      - run: npm run build
       - run: chmod -R u+x node_modules
       - run: s deploy
       - run: s hosting sync production
