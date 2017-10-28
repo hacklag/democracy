@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run: sudo npm install -g yarn
+      - run: sudo yarn global add syncano@beta
+      - run: chmod -R u+x node_modules
+      - run: s deploy
