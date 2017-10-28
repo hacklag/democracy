@@ -1,5 +1,6 @@
 import {connect} from 'zefir/utils';
 import {Button, Input, Grid} from '../../../components';
+import Moment from 'react-moment'
 
 const QuestionList = ({upvote, questions}) => (
   <ul className="QuestionList">
@@ -17,7 +18,7 @@ const QuestionList = ({upvote, questions}) => (
         </div>
         <h3>{q.content}</h3>
         <div className="Question__meta">
-          <span>{q.author.name}</span> asked <span>3h ago</span>
+          <span>{q.author.username}</span> asked <span><Moment fromNow date={q.created_at} /></span>
         </div>
       </li>
     ))}
@@ -70,6 +71,7 @@ const QuestionList = ({upvote, questions}) => (
         border-color: transparent transparent #007bff transparent;
         display: inline-block;
         vertical-align: top;
+        cursor: pointer;
       }
 
       .Question + .Question {

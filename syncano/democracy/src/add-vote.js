@@ -11,7 +11,6 @@ export default async ctx => {
   questionsList.forEach(item => {
     if (ctx.meta.user.id === item.author) {
       canVote = false
-      break
     }
   })
 

@@ -4,13 +4,14 @@ export default async ctx => {
   const {response, data} = new Syncano(ctx)
 
   try {
-    const questions = await data.question.orderBy('score').list()
+    const questions = await data.question.with('author').orderBy('score').list()
 
     response.success(questions)
   }
   catch (err) {
     response.fail({
-      message: 'Can not list questions',
+      err,
+      message: 'Can not list questions'
     })
   }
 }

@@ -16,7 +16,7 @@ QuestionForm.form = {
   formName: 'Question',
   fields: {
     content: {
-      placeholder: 'Ask question...'
+      placeholder: 'Your question...'
     }
   }
 }

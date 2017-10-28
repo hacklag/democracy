@@ -18,26 +18,7 @@ export default class App {
 
       }
 
-      this.store.questions.replace([
-        {
-          id: 1,
-          content: 'Should we go out tonight?',
-          author: {
-            username: 'johndoe',
-            name: 'John Doe'
-          },
-          points: 90
-        },
-        {
-          id: 2,
-          content: 'Should we build todo app?',
-          author: {
-            username: 'johndoe',
-            name: 'John Doe'
-          },
-          points: 140
-        }
-      ])
+      this.store.questions.replace(questions)
     }),
 
     upvote: action.bound(question =>
@@ -55,30 +36,44 @@ export default class App {
     )
   }
 
-  @action.bound login (network) {
-    const {messages} = this.stores
-    const {request, ui} = this.services
+  auth =  {
+    login: action.bound(network => {
+      const {messages} = this.stores
+      const {request, ui} = this.services
 
-    this.hello('facebook').login(
-      async social => {
-        const {access_token} = social.authResponse
+      this.hello('facebook').login(
+        async social => {
+          const {access_token} = social.authResponse
 
-        try {
-          const res = await request('auth:social-login').post(`user-auth/social-login`, {
-            network: 'facebook',
-            access_token
-          })
+          try {
+            const res = await request('auth:social-login')
+              .post(`user-auth/social-login`, {
+                network: 'facebook',
+                access_token
+              })
 
-          console.log("You're in.")
-        } catch (err) {
-          console.log(err.message)
-          messages.set('auth:login', err.message)
+            console.log("You're in.")
+          } catch (err) {
+            console.log(err.message)
+            messages.set('auth:login', err.message)
+          }
+        },
+        err => {
+          messages.set('auth.login', err)
         }
-      },
-      err => {
-        messages.set('auth.login', err)
-      }
-    )
+      )
+    }),
+
+    logout: action.bound(() => {
+      this.store.token = null
+      this.services.syncano.setToken(null)
+      this.router.history.push('/')
+      window.localStorage.removeItem('token')
+    }),
+
+    rebuildSession:  action.bound(() => {
+      this.store.token = window.localStorage.getItem('token')
+    })
   }
 
   _hello () {
