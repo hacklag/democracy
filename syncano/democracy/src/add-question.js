@@ -9,7 +9,8 @@ export default async ctx => {
       content: ctx.args.content,
       points: 1,
       score: 0,
-      upvoted_by: [ctx.meta.user.id]
+      upvoted_by: [ctx.meta.user.id],
+      was_picked: false,
     })
     response.success(question)
   }

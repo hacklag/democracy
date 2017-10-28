@@ -5,9 +5,10 @@ export default async ctx => {
 
   try {
     const activeQuestion = await data
-      .question_history
-      .orderBy('created_at', 'DESC')
-      .with('question')
+      .question
+      .where('was_picked', true)
+      .orderBy('picked_at', 'DESC')
+      .with('author')
       .first()
 
     response.success(activeQuestion)
