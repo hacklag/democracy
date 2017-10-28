@@ -8,7 +8,7 @@ export default async ctx => {
       author: ctx.meta.user.id,
       content: ctx.args.content,
       points: 1,
-      score: (0 / Math.pow(2, 1.8)),
+      score: 0,
       upvoted_by: [ctx.meta.user.id]
     })
     response.success(question)
