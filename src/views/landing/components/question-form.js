@@ -21,8 +21,12 @@ QuestionForm.form = {
   }
 }
 
-QuestionForm.init = ({services, form: {submit, fields}}) => ({
-  send: e => submit(e, services.app.question.add),
+QuestionForm.init = ({services, stores, form: {submit, fields}}) => ({
+  send: e => {
+    stores.app.isLoggedIn ?
+      submit(e, services.app.question.add) :
+      submit(e, services.app.auth.login)
+  },
   fields,
 })
 

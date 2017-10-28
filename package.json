@@ -20,5 +20,8 @@
     "dev": "zefir",
     "build": "zefir build",
     "start": "zefir start"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-define": "^1.3.0"
   }
 }

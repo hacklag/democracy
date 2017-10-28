@@ -22,7 +22,9 @@ const Landing = ({logout}) => (
 
     <Wrapper>
       <div className="Main">
-        <div className="CurrentQuestion">
+        <h2 className="Main__title u-pt+++">Democracy 3.0</h2>
+
+        <div className="CurrentQuestion u-mt+++">
           <div>
             <div className="CurrentQuestion__title">
               Current question
@@ -40,14 +42,14 @@ const Landing = ({logout}) => (
             <div className="CurrentQuestion__answer">
               <div className="CurrentQuestion__answer-head">
                 <span className="CurrentQuestion__key">Yes</span>
-                <span className="CurrentQuestion__value">{Math.round(100 * 20 / 124)}%</span>
+                <span className="CurrentQuestion__value">{Math.round(100 * 20 / 124)}% (20)</span>
               </div>
               <ProgressBar total={124} value={20} />
             </div>
             <div className="CurrentQuestion__answer">
               <div className="CurrentQuestion__answer-head">
                 <span className="CurrentQuestion__key">No</span>
-                <span className="CurrentQuestion__value">{Math.round(100 * 104 / 124)}%</span>
+                <span className="CurrentQuestion__value">{Math.round(100 * 104 / 124)}% (104)</span>
               </div>
               <ProgressBar total={124} value={104} />
             </div>
@@ -67,7 +69,13 @@ const Landing = ({logout}) => (
 
     <style jsx>{`
       .Main {
-        padding: 30px 0;
+        padding-bottom: 30px;
+      }
+
+      .Main__title {
+        text-align: center;
+        font-size: 48px;
+        font-weight: 300;
       }
 
       .CurrentQuestion {
@@ -82,6 +90,7 @@ const Landing = ({logout}) => (
 
       .CurrentQuestion__content {
         font-size: 24px;
+        font-weight: 400;
         align-self: center;
       }
 
