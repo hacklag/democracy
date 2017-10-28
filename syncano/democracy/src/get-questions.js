@@ -4,7 +4,12 @@ export default async ctx => {
   const {response, data} = new Syncano(ctx)
 
   try {
-    const questions = await data.question.with('author').orderBy('score').list()
+    const questions = await data
+      .question
+      .where('was_picked', false)
+      .with('author')
+      .orderBy('score')
+      .list()
 
     response.success(questions)
   } catch (err) {
