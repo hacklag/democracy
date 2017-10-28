@@ -1,0 +1,107 @@
+name: democracy
+description: Description of democracy
+version: 0.0.1
+
+classes:
+  question:
+    - name: content
+      type: text
+    - name: author
+      type: reference
+      target: user
+    - name: upvotes
+      type: integer
+    - name: score
+      type: float
+  question_history:
+    - name: question
+      type: reference
+      target: question
+  vote:
+    - name: author
+      type: reference
+      target: user
+    - name: question
+      type: reference
+      target: question
+    - name: value
+      type: boolean
+
+endpoints:
+  upvote-question:
+    parameters:
+      question:
+        type: integer
+    response:
+      success:
+        exit_code: 200
+      fail:
+        exit_code: 400
+        parameters:
+          message:
+            type: string
+  add-vote:
+    parameters:
+      question:
+        type: integer
+      value:
+        type: boolean
+    response:
+      success:
+        exit_code: 200
+      fail:
+        exit_code: 400
+        parameters:
+          message:
+            type: string
+  add-question:
+    parameters:
+      content:
+        type: string
+    response:
+      success:
+        exit_code: 200
+        parameters:
+          id:
+            type: string
+          content:
+            type: string
+          created_at:
+            type: datetime
+          updated_at:
+            type: datetime
+      fail:
+        exit_code: 400
+        parameters:
+          message:
+            type: string
+  delete-question:
+    parameters:
+      question:
+        type: integer
+    response:
+      success:
+        exit_code: 200
+      fail:
+        exit_code: 400
+        parameters:
+          message:
+            type: string
+  get-questions:
+    response:
+      success:
+        exit_code: 200
+      fail:
+        exit_code: 400
+        parameters:
+          message:
+            type: string
+  get-active-question:
+    response:
+      success:
+        exit_code: 200
+      fail:
+        exit_code: 400
+        parameters:
+          message:
+            type: string
