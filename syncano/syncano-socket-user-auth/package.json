@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "axios": "^0.16.2",
+    "fb": "^2.0.0",
+    "syncano-server": "beta"
+  }
+}
