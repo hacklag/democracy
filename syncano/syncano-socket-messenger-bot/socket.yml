@@ -1,0 +1,77 @@
+name: messenger_bot
+version: 0.1.14
+description: Facebook Messenger Bot
+url: 'https://github.com/eyedea-io/syncano-socket-messenger-bot'
+keywords:
+  - messenger
+  - facebook
+  - bot
+config:
+  FACEBOOK_APP_TOKEN:
+    description: Facebook App Page Token
+    long_description: >
+      To find the token, go to the 'Messenger > Settings > Token Generation'
+
+      section in your Facebook Application settings panel at
+      https://developers.facebook.com.
+    required: true
+event_handlers:
+  events.send-question:
+    file: send-question.js
+  events.message-send:
+    description: Handling sending message to the Facebook user
+    file: send-message.js
+    parameters:
+      text:
+        type: string
+        description: Content of the message to send
+        example: This is my example response!
+      sender:
+        type: string
+        description: ID of the message sender
+        example: '123123123123'
+  events.question-response-received:
+    description: Debug purpose only!
+    file: echo.js
+events:
+  question-response-received:
+    file: echo.js
+  message-received:
+    description: Emited after successful reception of the message
+    parameters:
+      text:
+        type: string
+        description: Content of the message
+        example: Hello from Facebook Messenger!
+      attachment:
+        type: object
+        description: JSON object defining attachement
+        example: |
+          {
+            "type": "image",
+            "payload": {
+              "url": "http://my_domian.com/my_image.png"
+            }
+          }
+      sender:
+        type: string
+        description: ID of the message sender
+        example: '123123123123'
+endpoints:
+  webhook:
+    description: For authentication purpose
+    file: webhook.js
+  send-question:
+    description: Send question
+    parameters:
+      questionId:
+        type: string
+        description: Question unique ID
+        example: '1231241'
+      questionText:
+        type: string
+        description: Queston Text
+      recipient:
+        type: string
+        description: Receipient ID
+        example: '123123123123'

@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run: sudo npm install -g yarn
+      - run: sudo npm install -g syncano-cli@beta
+      - run: sudo npm install -g zefir
+      - run: yarn
+      - run: chmod -R u+x node_modules
+      - run: npm run build
+      - run: s deploy
+      - run: s hosting sync production
+      - run: s hosting config production --cname democracy.hacklag.org

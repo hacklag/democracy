@@ -16,3 +16,8 @@ node_modules/
 
 # dotenv environment variables file
 .envrc
+<<<<<<< HEAD
+=======
+
+.DS_Store
+>>>>>>> 83f202b676648058f7437275cc1af35258196b1c
