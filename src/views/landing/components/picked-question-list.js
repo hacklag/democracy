@@ -2,9 +2,11 @@ import {connect} from 'zefir/utils';
 import {Button, Input, Grid, ProgressBar} from '../../../components';
 import Moment from 'react-moment'
 
-const PickedQuestionList = ({stores: {app}, services}) => (
+const PickedQuestionList = ({stores: {app, ui}, services}) => (
   <div>
-    {app.activeQuestion && (
+    {app.activeQuestion === null && !ui.pending.has('question:list') ? (
+      <div className="u-ta-c u-mt">No questions here.</div>
+    ) : app.activeQuestion && (
       <div className="CurrentQuestion">
         <h2 className="CurrentQuestion__content">
           {app.activeQuestion.content}
@@ -38,7 +40,9 @@ const PickedQuestionList = ({stores: {app}, services}) => (
     <h2 className="u-mt">Past questions</h2>
 
     <ul className="QuestionList u-mt--">
-      {app.pickedQuestions.slice(1).map(q => (
+    {app.pickedQuestions.slice(1).length === 0 && !ui.pending.has('question:list') ? (
+        <div className="u-ta-c u-mt">No questions here.</div>
+      ) : app.pickedQuestions.slice(1).map(q => (
         <li className="Question" key={q.id}>
           <div>
             <h3>{q.content}</h3>
