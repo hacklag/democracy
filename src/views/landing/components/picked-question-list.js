@@ -79,6 +79,8 @@ const PickedQuestionList = ({stores: {app}, services}) => (
 
       .Question__result-button {
         opacity: 0;
+        min-width: 140px;
+        text-align: right;
         transition: opacity .25s;
       }
 
@@ -119,7 +121,6 @@ const PickedQuestionList = ({stores: {app}, services}) => (
         border-radius: 4px;
         color: #fff;
         font-weight: bold;
-        min-width: 130px;
       }
 
       .CurrentQuestion__content {

@@ -31,6 +31,23 @@ export default async (ctx) => {
           type: 'messenger'
         }
       )
+
+      try {
+        const question = await data.question
+          .where('was_picked', true)
+          .orderBy('picked_at', 'DESC')
+          .first()
+
+        if (question) {
+          const params = {
+            questionId: question.id,
+            questionText: question.content,
+            recipient: sender
+          }
+
+          await event.emit('messenger_bot.send-question', params)
+        }
+      } catch (err) {}
     }
   } catch (err) {
     // console.log('Error', err)

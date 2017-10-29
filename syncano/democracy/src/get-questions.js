@@ -8,7 +8,7 @@ export default async ctx => {
       .question
       .where('was_picked', false)
       .with('author')
-      .orderBy('score')
+      .orderBy('score', 'desc')
       .list()
 
     response.success(questions)
