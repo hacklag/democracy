@@ -10,5 +10,4 @@ export default observable({
   get activeQuestion () {
     return this.pickedQuestions.length >= 1 ? this.pickedQuestions[0] : null
   }
-}
-)
+})
