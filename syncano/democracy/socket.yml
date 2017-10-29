@@ -25,13 +25,12 @@ classes:
       type: boolean
       filter_index: true
   vote:
-    - name: author
-      type: reference
-      target: user
+    - name: sender
+      type: string
+      filter_index: true
     - name: question
       type: reference
       target: question
-      filter_index: true
     - name: value
       type: boolean
 
@@ -49,6 +48,7 @@ endpoints:
           message:
             type: string
   add-vote:
+    private: true
     parameters:
       question:
         type: integer
@@ -128,3 +128,6 @@ event_handlers:
     file: event_handlers/score.handler.js
   schedule.crontab.*/10 * * * *:
     file: event_handlers/set-active-question.handler.js
+  events.messenger_bot.question-response-received:
+    file: event_handlers/cast-vote.handler.js
+

@@ -14,6 +14,9 @@ const QuestionForm = ({fields, send}) => (
 
 QuestionForm.form = {
   formName: 'Question',
+  rules: {
+    content: 'required|min:10'
+  },
   fields: {
     content: {
       placeholder: 'Your question...'

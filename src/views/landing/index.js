@@ -13,6 +13,7 @@ import {
 
 import QuestionForm from './components/question-form'
 import QuestionList from './components/question-list'
+import Header from './components/header'
 import PickedQuestionList from './components/picked-question-list'
 
 const Landing = ({logout}) => (
@@ -23,22 +24,22 @@ const Landing = ({logout}) => (
 
     <Wrapper>
       <div className="Main">
-        <h2 className="Main__title u-pt+++">Democracy 3.0</h2>
+        <Header />
 
-        <div className="u-mt+++">
+        <div className="u-mt">
           <QuestionForm />
         </div>
 
         <Grid spacing="md">
           <div className="u-1/1">
             <h2 className="u-mt">Pending questions</h2>
-            <div className="u-mt---">
+            <div className="u-mt--">
               <QuestionList />
             </div>
           </div>
           <div className="u-1/1">
             <h2 className="u-mt">Active question</h2>
-            <div className="u-mt---">
+            <div className="u-mt--">
               <PickedQuestionList />
             </div>
           </div>
@@ -49,12 +50,6 @@ const Landing = ({logout}) => (
     <style jsx>{`
       .Main {
         padding-bottom: 30px;
-      }
-
-      .Main__title {
-        text-align: center;
-        font-size: 48px;
-        font-weight: 300;
       }
     `}</style>
   </Page>

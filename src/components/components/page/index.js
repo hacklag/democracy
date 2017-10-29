@@ -57,12 +57,16 @@ const Page = ({children, alt}) => (
         font-weight: 300;
         line-height: 1.333334;
       }
+
       h1 {
+        font-family: 'Merriweather', serif;
         line-height: 1.25;
       }
 
       h2 {
-        line-height: 40px;
+        font-family: 'Merriweather', serif;
+        font-size: 20px;
+        line-height: 28px;
       }
 
       .u-v-separator {

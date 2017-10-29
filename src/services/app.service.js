@@ -1,5 +1,5 @@
 import hello from 'hellojs'
-import {action, runInAction} from 'mobx'
+import {action, runInAction, observable} from 'mobx'
 
 export default class App {
   constructor (props) {
@@ -9,7 +9,7 @@ export default class App {
   question = {
     list: action.bound(async () => {
       const questions = await this.services
-        .request('questiion:list')
+        .request('question:list')
         .get('democracy/get-questions')
 
       this.store.questions.replace(questions)
@@ -17,7 +17,7 @@ export default class App {
 
     listPicked: action.bound(async () => {
       const questions = await this.services
-        .request('questiion:list')
+        .request('question:list')
         .get('democracy/get-active-questions')
 
       this.store.pickedQuestions.replace(questions)
@@ -75,7 +75,7 @@ export default class App {
             }
 
             this.stores.auth.token = token
-            this.stores.auth.token = token
+            this.stores.auth.user = observable(user)
             window.localStorage.setItem('token', token)
             window.localStorage.setItem('user', JSON.stringify(user))
           } catch (err) {

@@ -3,36 +3,25 @@ import Syncano from 'syncano-server'
 export default async ctx => {
   const {response, data} = new Syncano(ctx)
 
-  const questionsList = await data.vote
-    .where('question', '=', ctx.args.question).list()
+  try {
+    const alreadyVoted = await data.vote
+    .where('question', ctx.args.question)
+    .where('sender', ctx.args.sender)
+    .first()
 
-  let canVote = true
-
-  questionsList.forEach(item => {
-    if (ctx.meta.user.id === item.author) {
-      canVote = false
-    }
-  })
-
-  if (!canVote) {
-    response.fail({
-      message: 'You have already voted'
-    })
+  if (alreadyVoted) {
+    console.log('already voted')
     process.exit(0)
   }
 
-  try {
-    const {question, value} = ctx.args
+  const {question, value, sender} = ctx.args
 
-    const vote = await data.vote.create({
-      author: ctx.meta.user.id,
-      question,
-      value
-    })
-    response.success(vote)
-  } catch (err) {
-    response.fail({
-      message: 'Can not add vote'
-    })
+  await data.vote.create({
+    sender,
+    question,
+    value
+  })
+  } catch (error) {
+    console.log(error, error.message)
   }
 }

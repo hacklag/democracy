@@ -8,6 +8,7 @@ const Head = ({children}) => (
       href='https://fonts.googleapis.com/css?family=Nunito:300,400,600,700'
       rel='stylesheet'
     />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400" rel="stylesheet" />
     {children}
   </ZefirHead>
 )

@@ -6,15 +6,17 @@ const PickedQuestionList = ({stores: {app}}) => (
   <div>
     {app.activeQuestion && (
       <div className="CurrentQuestion">
-        <h1 className="CurrentQuestion__content">
+        <h2 className="CurrentQuestion__content">
           {app.activeQuestion.content}
-        </h1>
+        </h2>
         <div className="Question__meta">
           <span>{app.activeQuestion.author.full_name}</span> asked <span><Moment fromNow date={app.activeQuestion.created_at} /></span>
         </div>
         <div className="CurrentQuestion__answers u-mt---">
-          {app.activeQuestion.votes.map(v => (
-            <div className="CurrentQuestion__answer">
+          {app.activeQuestion.total_votes === 0 ? (
+            <div className="u-ta-c u-mt">No votes yet. Be the first one to vote!</div>
+          ) : app.activeQuestion.votes.map(v => (
+            <div key={v.key} className="CurrentQuestion__answer">
               <div className="CurrentQuestion__answer-head">
                 <span className="CurrentQuestion__key">{v.key}</span>
                 <span className="CurrentQuestion__value">
@@ -25,17 +27,27 @@ const PickedQuestionList = ({stores: {app}}) => (
             </div>
           ))}
         </div>
+        <div className="u-mt">
+          <a href="https://www.facebook.com/Hackyeah-Democracy-30-Demo-497436700649246/">
+            <Button primary full>Cast your vote via Messanger</Button>
+          </a>
+        </div>
       </div>
     )}
 
     <h2 className="u-mt">Past questions</h2>
 
-    <ul className="QuestionList u-mt---">
+    <ul className="QuestionList u-mt--">
       {app.pickedQuestions.slice(1).map(q => (
         <li className="Question" key={q.id}>
-          <h3>{q.content}</h3>
-          <div className="Question__meta">
-            <span>{q.author.full_name}</span> asked <span><Moment fromNow date={q.created_at} /></span>
+          <div>
+            <h3>{q.content}</h3>
+            <div className="Question__meta">
+              <span>{q.author.full_name}</span> asked <span><Moment fromNow date={q.created_at} /></span>
+            </div>
+          </div>
+          <div className="Question__result-button">
+            <Button primary>View results</Button>
           </div>
         </li>
       ))}
@@ -52,6 +64,9 @@ const PickedQuestionList = ({stores: {app}}) => (
         border-radius: 4px;
         padding: 16px;
         position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
         box-shadow: 0 2px 4px hsla(225,2%,43%, .18);
       }
 
@@ -60,6 +75,15 @@ const PickedQuestionList = ({stores: {app}}) => (
         margin-top: 3px;
         color: #aaa;
         font-weight: bold;
+      }
+
+      .Question__result-button {
+        opacity: 0;
+        transition: opacity .25s;
+      }
+
+      .Question:hover .Question__result-button {
+        opacity: 1;
       }
 
       .Question__meta {
@@ -86,8 +110,18 @@ const PickedQuestionList = ({stores: {app}}) => (
         box-shadow: 0 2px 4px hsla(225,2%,43%, .18);
       }
 
+      .CurrentQuestion__cast-vote {
+        text-align: center;
+        padding: 8px;
+        display: block;
+        margin-top: 32px;
+        background: #00cc82 linear-gradient(to right,#00ccc5 0%,#00cc82 100%);
+        border-radius: 4px;
+        color: #fff;
+        font-weight: bold;
+      }
+
       .CurrentQuestion__content {
-        font-size: 24px;
         font-weight: 400;
         align-self: center;
       }
