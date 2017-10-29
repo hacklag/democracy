@@ -96,9 +96,9 @@ export default class App {
 
     logout: action.bound(() => {
       this.stores.auth.token = null
-      this.services.syncano.setToken(null)
-      this.router.history.push('/')
+      this.stores.auth.user = observable({})
       window.localStorage.removeItem('token')
+      window.localStorage.removeItem('user')
     }),
 
     rebuildSession:  action.bound(() => {
