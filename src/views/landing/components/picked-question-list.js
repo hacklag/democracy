@@ -1,8 +1,8 @@
 import {connect} from 'zefir/utils';
-import {Button, Input, Grid,   ProgressBar} from '../../../components';
+import {Button, Input, Grid, ProgressBar} from '../../../components';
 import Moment from 'react-moment'
 
-const PickedQuestionList = ({stores: {app}}) => (
+const PickedQuestionList = ({stores: {app}, services}) => (
   <div>
     {app.activeQuestion && (
       <div className="CurrentQuestion">
@@ -47,7 +47,7 @@ const PickedQuestionList = ({stores: {app}}) => (
             </div>
           </div>
           <div className="Question__result-button">
-            <Button primary>View results</Button>
+            <Button primary onClick={services.app.question.showResults} data-id={q.id}>View results</Button>
           </div>
         </li>
       ))}

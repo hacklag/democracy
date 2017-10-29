@@ -50,6 +50,11 @@ export default class App {
         runInAction('add question', () => {
           this.store.questions.push(question)
         })
+    }),
+
+    showResults: action.bound(e => {
+      this.store.selected = ~~e.target.dataset.id
+      this.services.ui.modals.voteResults.open()
     })
   }
 
