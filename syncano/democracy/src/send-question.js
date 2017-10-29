@@ -5,7 +5,10 @@ export default async ctx => {
   const {debug} = logger('send-question')
 
   try {
-    const question = await data.question.orderBy('score').first()
+    const question = await data.question
+      .where('was_picked', true)
+      .orderBy('picked_at', 'DESC')
+      .first()
     const allUsers = await users.where('type', 'messenger').list()
 
     debug('allUsers', allUsers.length)

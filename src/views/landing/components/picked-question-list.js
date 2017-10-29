@@ -119,6 +119,7 @@ const PickedQuestionList = ({stores: {app}, services}) => (
         border-radius: 4px;
         color: #fff;
         font-weight: bold;
+        min-width: 130px;
       }
 
       .CurrentQuestion__content {

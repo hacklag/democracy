@@ -126,7 +126,7 @@ endpoints:
 event_handlers:
   schedule.crontab.*/1 * * * *:
     file: event_handlers/score.handler.js
-  schedule.crontab.*/10 * * * *:
+  schedule.crontab.*/20 * * * *:
     file: event_handlers/set-active-question.handler.js
   events.messenger_bot.question-response-received:
     file: event_handlers/cast-vote.handler.js

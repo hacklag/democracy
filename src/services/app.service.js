@@ -28,7 +28,6 @@ export default class App {
         .request('question:upvote')
         .post('democracy/upvote-question', {question})
 
-      console.log(this.store.questions)
       this.store.questions.replace(
         this.store.questions.map(item =>
           item.id === res.id ? {
