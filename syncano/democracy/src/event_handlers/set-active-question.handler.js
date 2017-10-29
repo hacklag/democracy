@@ -1,11 +1,11 @@
 import Syncano from 'syncano-server'
 
 export default async ctx => {
-  const {response, data} = new Syncano(ctx)
+  const {socket, response, data} = new Syncano(ctx)
 
   const mostScoredQuestion = await data
     .question
-    .where([['was_picked', false], ['score', '>', 0]])
+    .where('was_picked', false)
     .orderBy('score', 'DESC')
     .first()
 
@@ -14,5 +14,7 @@ export default async ctx => {
       was_picked: true,
       picked_at: new Date().toISOString()
     })
+
+    await socket.post('democracy/send-question')
   }
 }
